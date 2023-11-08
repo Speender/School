@@ -8,7 +8,7 @@ int main() {
     printf("Enter the length of the side A of the right triangle: ");
     scanf("%lf", &sideA);
     NULL;
-    printf("Enter the length of the side b of the right triangle: ");
+    printf("Enter the length of the side B of the right triangle: ");
     scanf("%lf", &sideB);
     rightTriangle(sideA, sideB);
     return 0;
