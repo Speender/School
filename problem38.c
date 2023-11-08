@@ -32,10 +32,11 @@ double roundOff(double number)
 
 double floorNumber(double number)
 {
-    return floor(number);
+    return printf("The floor value: %.6lf\n", number);;
 }
 
 double ceilingNumber(double number)
 {
-    return ceil(number);
+    return  printf("The ceiling value: %.6lf\n", number);;
 }
+
