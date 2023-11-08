@@ -15,8 +15,6 @@ int main()
     ceiling = ceilingNumber(num1);
     roundingOff = roundOff(num1);
     
-    printf("The floor value: %.6lf\n", floor);
-    printf("The ceiling value: %.6lf\n", ceiling);
     printf("Rounded value: %.6lf\n", roundingOff);
     
     return 0;
@@ -32,11 +30,11 @@ double roundOff(double number)
 
 double floorNumber(double number)
 {
-    return printf("The floor value: %.6lf\n", number);;
+    return printf("The floor value: %.6lf\n", number);
 }
 
 double ceilingNumber(double number)
 {
-    return  printf("The ceiling value: %.6lf\n", number);;
+    return  printf("The ceiling value: %.6lf\n", number);
 }
 
