@@ -17,7 +17,7 @@ int main() {
 void rightTriangle(double a, double b) {
     double hypotenuse, area;
 
-    hypotenuse = sqrt(a * a + b * b); 
+    hypotenuse = sqrt(a * a) + (b * b); 
     area = 0.5 * (a * b);               
     printf("The length of the hypotenuse is: %.2lf\n", hypotenuse);
     printf("The area is equal to: %.2lf\n", area);
