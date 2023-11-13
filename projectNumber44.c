@@ -67,22 +67,25 @@ double discountTotalValue(double priceTotal, double discountRate);
 double subTotalValue(double priceTotal, double discountTotal);
 double taxTotalValue(double subtotal);
 double totalValue(double tax, double subtotal);
+double percentage(double discount, char symbol);
 
-int main() 
-{
-    double length, width, compute, carpetCharge, laborCharge, priceTotal, discountTotal, subtotal, tax, total;
-    const double DISCOUNT_RATE = 0.20;
+int main() {
+    double length, width, compute, carpetCharge, laborCharge, priceTotal, discountTotal, subtotal, tax, total, discount_rate;
+    char symbol;
 
     printf("Enter the length of the room: ");
     scanf("%lf", &length);
     printf("Enter the width of the room: ");
     scanf("%lf", &width);
+    printf("Enter the discount rate and symbol (e.g., 10 %%): ");
+    scanf("%lf %c", &discount_rate, &symbol);
 
+    double discount = percentage(discount_rate, symbol);
     compute = area(length, width);
     carpetCharge = carpet(compute);
     laborCharge = laborChargeValue(compute);
     priceTotal = priceValue(carpetCharge, laborCharge);
-    discountTotal = discountTotalValue(priceTotal, DISCOUNT_RATE);
+    discountTotal = discountTotalValue(priceTotal, discount);
     subtotal = subTotalValue(priceTotal, discountTotal);
     tax = taxTotalValue(subtotal);
     total = totalValue(tax, subtotal);
@@ -98,7 +101,7 @@ int main()
     printf("Labor\t\t\t%.2lf\t\t%.2lf\n", LABOR_RATE, laborCharge);
     printf("\t\t\t\t\t----------\n");
     printf("INSTALLED PRICE\t\t\t\t$%.2lf\n", priceTotal);
-    printf("Discount\t\t%.2lf%%\t\t%.2lf\n", DISCOUNT_RATE * 100, discountTotal);
+    printf("Discount\t\t%.2lf%%\t\t%.2lf\n", discount_rate, discountTotal);
     printf("\t\t\t\t\t----------\n");
     printf("SUBTOTAL\t\t\t\t$%.2lf\n", subtotal);
     printf("Tax\t\t\t\t\t%.2lf\n", tax);
@@ -124,7 +127,7 @@ double priceValue(double carpetCharge, double laborCharge) {
 }
 
 double discountTotalValue(double priceTotal, double discountRate) {
-    return priceTotal * discountRate;
+    return priceTotal * discountRate / 100;
 }
 
 double subTotalValue(double priceTotal, double discountTotal) {
@@ -138,3 +141,105 @@ double taxTotalValue(double subtotal) {
 double totalValue(double tax, double subtotal) {
     return subtotal + tax;
 }
+
+double percentage(double discount, char symbol) {
+    if (symbol == '%') {
+        return discount / 100.0;
+    } else {
+        return discount;
+    }
+}
+
+
+//another type without char
+#include <stdio.h>
+
+#define LABOR_RATE 0.35
+#define TAX_RATE 0.085
+
+double area(double num1, double num2);
+double carpet(double area);
+double laborChargeValue(double area);
+double priceValue(double carpetCharge, double laborCharge);
+double discountTotalValue(double priceTotal, double discountRate);
+double subTotalValue(double priceTotal, double discountTotal);
+double taxTotalValue(double subtotal);
+double totalValue(double tax, double subtotal);
+double percentage(double discount);
+
+int main() {
+    double length, width, compute, carpetCharge, laborCharge, priceTotal, discountTotal, subtotal, tax, total, discount_rate;
+
+    printf("Enter the length of the room: ");
+    scanf("%lf", &length);
+    printf("Enter the width of the room: ");
+    scanf("%lf", &width);
+    printf("Enter the discount rate: ");
+    scanf("%lf", &discount_rate);
+
+    double discount = percentage(discount_rate);
+    compute = area(length, width);
+    carpetCharge = carpet(compute);
+    laborCharge = laborChargeValue(compute);
+    priceTotal = priceValue(carpetCharge, laborCharge);
+    discountTotal = discountTotalValue(priceTotal, discount);
+    subtotal = subTotalValue(priceTotal, discountTotal);
+    tax = taxTotalValue(subtotal);
+    total = totalValue(tax, subtotal);
+
+    printf("\t\t\tMEASUREMENT\n\n");
+    printf("Length\t\t\t\t\t%.2lf ft\n", length);
+    printf("Width\t\t\t\t\t%.2lf ft\n", width);
+    printf("Area\t\t\t\t\t%.2lf square ft\n", compute);
+    printf("\n\t\t\tCHARGES\n\n");
+    printf("DESCRIPTION\t\tCOST/SQ.FT.\tCHARGE\n");
+    printf("-----------\t\t-----------\t-----------\n");
+    printf("Carpet\t\t\t%.2lf\t\t$%.2lf\n", compute, carpetCharge);
+    printf("Labor\t\t\t%.2lf\t\t%.2lf\n", LABOR_RATE, laborCharge);
+    printf("\t\t\t\t\t----------\n");
+    printf("INSTALLED PRICE\t\t\t\t$%.2lf\n", priceTotal);
+    printf("Discount\t\t%.2lf%%\t\t%.2lf\n", discount_rate, discountTotal);
+    printf("\t\t\t\t\t----------\n");
+    printf("SUBTOTAL\t\t\t\t$%.2lf\n", subtotal);
+    printf("Tax\t\t\t\t\t%.2lf\n", tax);
+    printf("TOTAL\t\t\t\t\t$%.2lf\n", total);
+
+    return 0;
+}
+
+double area(double num1, double num2) {
+    return num1 * num2;
+}
+
+double carpet(double area) {
+    return area * 5;  // Assuming a unit price of $5 per square foot
+}
+
+double laborChargeValue(double area) {
+    return area * LABOR_RATE;
+}
+
+double priceValue(double carpetCharge, double laborCharge) {
+    return carpetCharge + laborCharge;
+}
+
+double discountTotalValue(double priceTotal, double discountRate) {
+    return priceTotal * discountRate / 100;
+}
+
+double subTotalValue(double priceTotal, double discountTotal) {
+    return priceTotal - discountTotal;
+}
+
+double taxTotalValue(double subtotal) {
+    return subtotal * TAX_RATE;
+}
+
+double totalValue(double tax, double subtotal) {
+    return subtotal + tax;
+}
+
+double percentage(double discount) {
+    return discount / 100.0;
+}
+
